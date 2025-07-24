@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /ordering
+
+# Se il file o la cartella esistono, lasciali così
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Altrimenti riscrivi tutto a index.php
+RewriteRule ^ index.php [QSA,L]
