@@ -14,10 +14,11 @@ class CartController
     public function add()
     {
         session_start();
+        $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
         // prendi item e qty dal form
         $itemId = intval($_POST['item_id'] ?? 0);
         if ($itemId <= 0) {
-            header('Location: /ordering/');
+            header('Location: ' . $basePath . '/');
             exit;
         }
         // inizializza carrello se manca
@@ -31,7 +32,7 @@ class CartController
             $_SESSION['cart'][$itemId] = 1;
         }
         // torna al carrello
-        header('Location: /ordering/cart');
+        header('Location: ' . $basePath . '/cart');
         exit;
     }
 }
