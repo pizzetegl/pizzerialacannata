@@ -2,10 +2,16 @@
 namespace App\Controllers;
 
 use App\Database;
+use App\Exceptions\DatabaseException;
 
 class MenuController {
   public function index() {
-    $db = Database::get();
+    try {
+      $db = Database::get();
+    } catch (DatabaseException $e) {
+      echo $e->getMessage();
+      return;
+    }
     // Prendi categorie e piatti
     $stmt = $db->query("
       SELECT c.id AS cat_id, c.name AS cat_name,
