@@ -26,10 +26,6 @@ spl_autoload_register(function(string $class) {
     }
 });
 
-// 3) Carica la config del database
-$config = require __DIR__ . '/src/config.php';
-
-// 4) Avvia il router
 $router = new App\Router();
 
 // Determine the base subfolder from SCRIPT_NAME
