@@ -6,6 +6,8 @@
 </head>
 <body>
   <?php
+  use App\Database;
+  use App\Exceptions\DatabaseException;
   $basePath = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
   ?>
   <h1>Il tuo carrello</h1>
@@ -16,7 +18,12 @@
       <tr><th>Piatti</th><th>Quantità</th><th>Prezzo unitario</th><th>Subtotale</th></tr>
       <?php
       // recupera i dettagli da DB
-      $db = \App\Database::get();
+      try {
+        $db = Database::get();
+      } catch (DatabaseException $e) {
+        echo $e->getMessage();
+        return;
+      }
       $total = 0;
       foreach ($cart as $itemId => $qty):
         $stmt = $db->prepare("SELECT name, price FROM menu_items WHERE id = ?");
